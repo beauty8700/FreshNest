@@ -1,0 +1,33 @@
+:root {
+  --green: #2e7d32;
+  --light-green: #e8f5e9;
+  --brown: #6d4c41;
+  --tan: #d7ccc8;
+  --blue: #1565c0;
+  --yellow: #f9a825;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #ffffff;
+  margin: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.btn {
+  background: var(--green);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn.secondary {
+  background: var(--brown);
+}
