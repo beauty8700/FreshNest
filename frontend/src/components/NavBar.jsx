@@ -44,19 +44,21 @@ function NavBar() {
 
         {isAuthenticated ? (
           <>
-            <div className="relative mr-4">
-              <button
-                onClick={() => navigate('/cart')}
-                className="relative p-2 hover:bg-mint-green rounded-full transition"
-              >
-                <i className="fa-solid fa-cart-shopping text-xl text-forest-green"></i>
-                {getCartItemCount() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-sage-green text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {getCartItemCount() > 9 ? '9+' : getCartItemCount()}
-                  </span>
-                )}
-              </button>
-            </div>
+            {user?.userType !== 'farmer' && (
+              <div className="relative mr-4">
+                <button
+                  onClick={() => navigate('/cart')}
+                  className="relative p-2 hover:bg-mint-green rounded-full transition"
+                >
+                  <i className="fa-solid fa-cart-shopping text-xl text-forest-green"></i>
+                  {getCartItemCount() > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-sage-green text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {getCartItemCount() > 9 ? '9+' : getCartItemCount()}
+                    </span>
+                  )}
+                </button>
+              </div>
+            )}
             <div className="relative">
               <button
                 onClick={(e) => {
@@ -71,21 +73,7 @@ function NavBar() {
               </button>
               {userMenuVisible && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border-2 border-light-beige z-50">
-                  <Link
-                    to="/dashboard"
-                    className="block px-4 py-2 hover:bg-mint-green text-forest-green transition"
-                    onClick={() => setUserMenuVisible(false)}
-                  >
-                    <i className="fa-solid fa-user mr-2"></i>Dashboard
-                  </Link>
-                  <Link
-                    to="/wishlist"
-                    className="block px-4 py-2 hover:bg-mint-green text-forest-green transition"
-                    onClick={() => setUserMenuVisible(false)}
-                  >
-                    <i className="fa-solid fa-heart mr-2"></i>Wishlist
-                  </Link>
-                  {user?.userType === 'farmer' && (
+                  {user?.userType === 'farmer' ? (
                     <Link
                       to="/farmer-dashboard"
                       className="block px-4 py-2 hover:bg-mint-green text-forest-green transition"
@@ -93,6 +81,23 @@ function NavBar() {
                     >
                       <i className="fa-solid fa-tractor mr-2"></i>Farmer Dashboard
                     </Link>
+                  ) : (
+                    <>
+                      <Link
+                        to="/dashboard"
+                        className="block px-4 py-2 hover:bg-mint-green text-forest-green transition"
+                        onClick={() => setUserMenuVisible(false)}
+                      >
+                        <i className="fa-solid fa-user mr-2"></i>Customer Dashboard
+                      </Link>
+                      <Link
+                        to="/wishlist"
+                        className="block px-4 py-2 hover:bg-mint-green text-forest-green transition"
+                        onClick={() => setUserMenuVisible(false)}
+                      >
+                        <i className="fa-solid fa-heart mr-2"></i>Wishlist
+                      </Link>
+                    </>
                   )}
                   <button
                     onClick={() => {
@@ -149,11 +154,14 @@ function NavBar() {
           <MobileNavBarItem text="Contact" route="/contact" />
           {isAuthenticated ? (
             <>
-              <MobileNavBarItem text="Cart" route="/cart" />
-              <MobileNavBarItem text="Dashboard" route="/dashboard" />
-              <MobileNavBarItem text="Wishlist" route="/wishlist" />
-              {user?.userType === 'farmer' && (
+              {user?.userType === 'farmer' ? (
                 <MobileNavBarItem text="Farmer Dashboard" route="/farmer-dashboard" />
+              ) : (
+                <>
+                  <MobileNavBarItem text="Cart" route="/cart" />
+                  <MobileNavBarItem text="Customer Dashboard" route="/dashboard" />
+                  <MobileNavBarItem text="Wishlist" route="/wishlist" />
+                </>
               )}
               <div
                 onClick={() => {

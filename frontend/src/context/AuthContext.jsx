@@ -13,8 +13,14 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       API.get("/auth/me")
-        .then(res => setUser(res.data))
-        .catch(() => localStorage.removeItem("token"))
+        .then(res => {
+          setUser(res.data);
+          localStorage.setItem("user", JSON.stringify(res.data));
+        })
+        .catch(() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+        })
         .finally(() => setLoading(false));
     } else {
       setLoading(false);
@@ -22,19 +28,32 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (data) => {
-    const res = await API.post("/auth/login", data);
-    localStorage.setItem("token", res.data.token);
-    setUser(res.data.user);
+    try {
+      const res = await API.post("/auth/login", data);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      setUser(res.data.user);
+      return { success: true, user: res.data.user };
+    } catch (error) {
+      throw error;
+    }
   };
 
   const register = async (data) => {
-    const res = await API.post("/auth/register", data);
-    localStorage.setItem("token", res.data.token);
-    setUser(res.data.user);
+    try {
+      const res = await API.post("/auth/register", data);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      setUser(res.data.user);
+      return { success: true, user: res.data.user };
+    } catch (error) {
+      throw error;
+    }
   };
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
   };
 
