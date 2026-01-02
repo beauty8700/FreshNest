@@ -5,12 +5,10 @@ import { authenticate, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Get farmer statistics (protected - farmers only)
 router.get('/stats', authenticate, authorize('farmer'), async (req, res) => {
   try {
     const farmerId = req.user._id;
 
-    // Get product statistics
     const totalProducts = await Product.countDocuments({ farmer: farmerId });
     const activeProducts = await Product.countDocuments({ 
       farmer: farmerId, 
@@ -21,7 +19,6 @@ router.get('/stats', authenticate, authorize('farmer'), async (req, res) => {
       { $group: { _id: null, total: { $sum: '$stock' } } }
     ]);
 
-    // Get order statistics
     const allOrders = await Order.find()
       .populate({
         path: 'items.product',
@@ -40,7 +37,6 @@ router.get('/stats', authenticate, authorize('farmer'), async (req, res) => {
     const processingOrders = farmerOrders.filter(o => o.orderStatus === 'processing').length;
     const deliveredOrders = farmerOrders.filter(o => o.orderStatus === 'delivered').length;
 
-    // Calculate total revenue
     const totalRevenue = farmerOrders.reduce((sum, order) => {
       const orderItems = order.items.filter(item => {
         const product = item.product;
@@ -49,7 +45,6 @@ router.get('/stats', authenticate, authorize('farmer'), async (req, res) => {
       return sum + orderItems.reduce((itemSum, item) => itemSum + (item.price * item.quantity), 0);
     }, 0);
 
-    // Get recent orders (last 5)
     const recentOrders = farmerOrders
       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       .slice(0, 5)

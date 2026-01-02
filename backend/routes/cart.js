@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.get('/', authenticate, async (req, res) => {
   try {
-    // Only customers can access cart
     if (req.user.userType === 'farmer') {
       return res.status(403).json({ message: 'Farmers cannot access cart. Please use the farmer dashboard.' });
     }
@@ -21,10 +20,8 @@ router.get('/', authenticate, async (req, res) => {
   }
 });
 
-// Frontend expects POST /cart with { productId }
 router.post('/', authenticate, async (req, res) => {
   try {
-    // Only customers can add to cart
     if (req.user.userType === 'farmer') {
       return res.status(403).json({ message: 'Farmers cannot add items to cart.' });
     }
@@ -48,7 +45,6 @@ router.post('/', authenticate, async (req, res) => {
   }
 });
 
-// Keep /add for backward compatibility
 router.post('/add', authenticate, async (req, res) => {
   try {
     const { productId, quantity = 1 } = req.body;
@@ -70,10 +66,8 @@ router.post('/add', authenticate, async (req, res) => {
   }
 });
 
-// Frontend expects DELETE /cart/:itemId (itemId is the cart item _id, not productId)
 router.delete('/:itemId', authenticate, async (req, res) => {
   try {
-    // Only customers can modify cart
     if (req.user.userType === 'farmer') {
       return res.status(403).json({ message: 'Farmers cannot modify cart.' });
     }
@@ -90,7 +84,6 @@ router.delete('/:itemId', authenticate, async (req, res) => {
   }
 });
 
-// Keep /remove/:productId for backward compatibility
 router.delete('/remove/:productId', authenticate, async (req, res) => {
   try {
     const { productId } = req.params;
@@ -107,7 +100,6 @@ router.delete('/remove/:productId', authenticate, async (req, res) => {
 
 router.put('/update/:productId', authenticate, async (req, res) => {
   try {
-    // Only customers can modify cart
     if (req.user.userType === 'farmer') {
       return res.status(403).json({ message: 'Farmers cannot modify cart.' });
     }
@@ -129,7 +121,6 @@ router.put('/update/:productId', authenticate, async (req, res) => {
 
 router.delete('/clear', authenticate, async (req, res) => {
   try {
-    // Only customers can clear cart
     if (req.user.userType === 'farmer') {
       return res.status(403).json({ message: 'Farmers cannot clear cart.' });
     }

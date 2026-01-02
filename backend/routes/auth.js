@@ -16,19 +16,16 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
-    // Validate userType
     const validUserTypes = ['customer', 'farmer', 'admin'];
     if (userType && !validUserTypes.includes(userType)) {
       return res.status(400).json({ message: `userType must be one of: ${validUserTypes.join(', ')}` });
     }
 
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ message: 'Invalid email format' });
     }
 
-    // Validate password strength (minimum 6 characters)
     if (password.length < 6) {
       return res.status(400).json({ message: 'Password must be at least 6 characters long' });
     }

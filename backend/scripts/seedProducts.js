@@ -5,7 +5,6 @@ import Product from '../models/Product.js';
 dotenv.config();
 
 const products = [
-  // Vegetables
   {
     name: 'Cabbage',
     description: 'Fresh and crispy cabbage, locally grown',
@@ -76,7 +75,6 @@ const products = [
     unit: 'kg',
     rating: 4.2,
   },
-  // Fruits
   {
     name: 'Banana',
     description: 'Sweet and ripe bananas',
@@ -156,11 +154,9 @@ async function seedProducts() {
     );
     console.log('Connected to MongoDB');
 
-    // Clear existing products
     await Product.deleteMany({});
     console.log('Cleared existing products');
 
-    // Insert products
     await Product.insertMany(products);
     console.log(`Seeded ${products.length} products`);
 

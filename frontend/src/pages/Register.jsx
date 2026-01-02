@@ -24,7 +24,6 @@ export default function Register() {
     try {
       const result = await register(form);
       toast.success("Registration successful!");
-      // Redirect based on user type (defaults to customer)
       if (result?.user?.userType === "farmer") {
         navigate("/farmer-dashboard");
       } else {

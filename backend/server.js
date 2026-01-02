@@ -14,21 +14,18 @@ connectDB();
 
 const app = express();
 
-// Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: process.env.FRONTEND_URL || 'http://localhost:5174',
   credentials: true,
 }));
 app.use(express.json());
 
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/farmers", farmerRoutes);
 
-// Health check
 app.get("/api/health", (req, res) => {
   res.json({ status: "OK", message: "Server is running" });
 });

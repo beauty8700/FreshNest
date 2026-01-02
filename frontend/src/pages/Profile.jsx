@@ -40,12 +40,10 @@ const Profile = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      // Note: You'll need to add a PATCH /api/auth/profile endpoint in backend
       await API.patch("/auth/profile", form);
       toast.success("Profile updated successfully!");
-      // Refresh user data
       const res = await API.get("/auth/me");
-      login({ email: res.data.email, password: "" }); // This won't work, need to update context
+      login({ email: res.data.email, password: "" }); 
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to update profile");
     } finally {

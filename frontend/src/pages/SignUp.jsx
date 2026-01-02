@@ -26,7 +26,6 @@ const Signup = () => {
     try {
       const result = await register(form);
       toast.success("Registration successful!");
-      // Redirect based on user type
       if (result?.user?.userType === "farmer") {
         navigate("/farmer-dashboard");
       } else {

@@ -11,7 +11,7 @@ export default function ShopItem({ product }) {
   const [loading, setLoading] = useState(false);
 
   const handleAddToCart = async (e) => {
-    e.stopPropagation(); // Prevent parent onClick (navigation to product detail)
+    e.stopPropagation(); 
 
     if (!isAuthenticated) {
       toast.error("Please login to add items to cart");

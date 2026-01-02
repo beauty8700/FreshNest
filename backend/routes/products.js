@@ -4,7 +4,6 @@ import { authenticate, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Get all active products (public)
 router.get('/', async (req, res) => {
   try {
     const products = await Product.find({ isActive: true }).populate('farmer', 'name email');
@@ -14,8 +13,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get farmer's own products (protected - farmers only)
-// IMPORTANT: This route MUST come before /:id to avoid route conflicts
+
 router.get('/my-products', authenticate, authorize('farmer'), async (req, res) => {
   try {
     const products = await Product.find({ farmer: req.user._id })
@@ -26,7 +24,6 @@ router.get('/my-products', authenticate, authorize('farmer'), async (req, res) =
   }
 });
 
-// Get single product (public)
 router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate('farmer', 'name email');
@@ -39,7 +36,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create product (protected - farmers only)
 router.post('/', authenticate, authorize('farmer'), async (req, res) => {
   try {
     const { name, description, price, category, stock, unit, image } = req.body;
@@ -66,7 +62,6 @@ router.post('/', authenticate, authorize('farmer'), async (req, res) => {
   }
 });
 
-// Update product (protected - farmers only, own products)
 router.put('/:id', authenticate, authorize('farmer'), async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -89,8 +84,6 @@ router.put('/:id', authenticate, authorize('farmer'), async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
-// Delete product (protected - farmers only, own products)
 router.delete('/:id', authenticate, authorize('farmer'), async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);

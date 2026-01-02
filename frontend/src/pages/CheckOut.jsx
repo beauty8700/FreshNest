@@ -63,7 +63,6 @@ const CheckOut = () => {
         totalAmount: calculateTotal(),
       });
 
-      // Clear cart
       await API.delete("/cart/clear");
       fetchCart();
 

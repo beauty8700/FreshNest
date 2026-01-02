@@ -3,7 +3,6 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-// Pages
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import Login from "./pages/Login";
@@ -23,13 +22,10 @@ import Contact from "./pages/Contact";
 function App() {
   return (
     <div className="flex flex-col min-h-screen bg-[#f9faf7]">
-      {/* 🌿 Navbar */}
       <NavBar />
 
-      {/* 🌿 Main Content */}
       <main className="flex-1 px-4 md:px-10 py-6">
         <Routes>
-          {/* Public Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
@@ -39,7 +35,6 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/product/:id" element={<ProductDetail />} />
 
-          {/* 🔐 Protected User Routes */}
           <Route
             path="/profile"
             element={
@@ -85,7 +80,6 @@ function App() {
             }
           />
 
-          {/* 🌾 Role Based Routes */}
           <Route
             path="/dashboard"
             element={
@@ -104,7 +98,6 @@ function App() {
             }
           />
 
-          {/* ❌ 404 Page */}
           <Route
             path="*"
             element={
@@ -119,7 +112,6 @@ function App() {
         </Routes>
       </main>
 
-      {/* 🌿 Footer */}
       <Footer />
     </div>
   );

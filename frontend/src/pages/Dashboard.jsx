@@ -10,7 +10,6 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Redirect farmers to farmer dashboard
     if (user?.userType === "farmer") {
       navigate("/farmer-dashboard");
       return;
@@ -36,7 +35,6 @@ const Dashboard = () => {
     return <div className="pt-20 text-center">Loading...</div>;
   }
 
-  // Don't render if user is a farmer (will redirect)
   if (user.userType === "farmer") {
     return null;
   }

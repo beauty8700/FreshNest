@@ -12,7 +12,7 @@ export default function Home() {
     const fetchProducts = async () => {
       try {
         const res = await API.get("/products");
-        setProducts(res.data.slice(0, 8)); // Show only first 8 products on home
+        setProducts(res.data.slice(0, 8));
       } catch (error) {
         console.error("Failed to fetch products:", error);
       } finally {
@@ -24,6 +24,11 @@ export default function Home() {
 
   return (
     <div className="max-w-7xl mx-auto pt-20 px-4">
+      {/* <img
+          src={screen}
+          alt="Fresh organic produce"
+          className="h-full w-full object-cover"
+        /> */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-green-800 mb-4">
           🌱 FreshNest Organic Store

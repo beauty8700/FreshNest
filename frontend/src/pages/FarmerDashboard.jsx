@@ -136,7 +136,6 @@ const FarmerDashboard = () => {
         )}
       </div>
 
-      {/* Tabs */}
       <div className="flex gap-4 mb-6 border-b">
         <button
           onClick={() => setActiveTab("products")}
@@ -160,7 +159,6 @@ const FarmerDashboard = () => {
         </button>
       </div>
 
-      {/* Products Tab */}
       {activeTab === "products" && (
         <>
           {showForm && (

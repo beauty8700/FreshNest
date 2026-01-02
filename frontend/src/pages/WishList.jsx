@@ -9,10 +9,6 @@ const WishList = () => {
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        // Note: Wishlist endpoint not implemented in backend yet
-        // For now, show empty state gracefully
-        // const res = await API.get("/wishlist");
-        // setItems(res.data);
         setItems([]);
       } catch (error) {
         console.error("Wishlist not available:", error);

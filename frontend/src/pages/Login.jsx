@@ -9,7 +9,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [userType, setUserType] = useState("customer"); // "customer" or "farmer"
+  const [userType, setUserType] = useState("customer"); 
 
   const submit = async (e) => {
     e.preventDefault();
@@ -18,8 +18,6 @@ export default function Login() {
       const result = await login({ email, password });
       toast.success("Login successful!");
       
-      // Redirect based on user type
-      // Get user from the login response or from context
       const userData = result?.user || JSON.parse(localStorage.getItem("user") || "{}");
       if (userData.userType === "farmer") {
         navigate("/farmer-dashboard");
@@ -40,7 +38,7 @@ export default function Login() {
           Login 🌱
         </h2>
 
-        {/* User Type Selection */}
+       
         <div className="mb-6 flex gap-2 bg-gray-100 p-1 rounded-lg">
           <button
             type="button"

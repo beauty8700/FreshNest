@@ -14,7 +14,6 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real app, this would send to backend
     toast.success("Thank you for your message! We'll get back to you soon.");
     setForm({ name: "", email: "", message: "" });
   };

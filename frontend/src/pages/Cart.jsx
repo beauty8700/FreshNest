@@ -24,7 +24,6 @@ const Cart = () => {
     }
     try {
       setLoading(true);
-      // Use productId for update endpoint
       await API.put(`/cart/update/${item.product._id}`, { quantity: newQuantity });
       fetchCart();
     } catch (error) {
